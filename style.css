@@ -14,48 +14,15 @@
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
+  min-height: 100%;
   background: #111;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: #111;
-  pointer-events: none;
-}
-
-.site-frame-bg,
-.site-bg-shade {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.site-frame-bg {
-  z-index: 1;
-}
-
-.site-bg-shade {
-  z-index: 2;
-  background:
-    linear-gradient(90deg, rgba(15, 22, 13, 0.78), rgba(15, 22, 13, 0.42) 52%, rgba(15, 22, 13, 0.22)),
-    linear-gradient(0deg, rgba(15, 22, 13, 0.72), rgba(15, 22, 13, 0.12) 42%, rgba(15, 22, 13, 0.6));
-}
-
-header,
-main {
-  position: relative;
-  z-index: 3;
 }
 
 a {
@@ -80,8 +47,8 @@ img {
 }
 
 .intro-scrolly {
-  height: 620vh;
-  min-height: 620vh;
+  height: 820vh;
+  min-height: 820vh;
   display: block;
   padding: 0;
   background: transparent;
@@ -90,11 +57,23 @@ img {
 .hero-sticky {
   position: sticky;
   top: 0;
+  height: 100vh;
+  height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   display: grid;
   align-items: end;
   padding: 24px clamp(18px, 4vw, 64px) 72px;
+}
+
+.site-frame-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero-shade {
@@ -103,7 +82,7 @@ img {
 }
 
 .hero-shade {
-  z-index: 0;
+  z-index: 1;
   background:
     linear-gradient(90deg, rgba(15, 22, 13, 0.9), rgba(15, 22, 13, 0.5) 52%, rgba(15, 22, 13, 0.18)),
     linear-gradient(0deg, rgba(15, 22, 13, 0.88), transparent 42%);
@@ -149,7 +128,7 @@ img {
   position: absolute;
   inset: auto 0 0;
   height: 25vh;
-  z-index: 1;
+  z-index: 2;
   background: linear-gradient(transparent, var(--background));
 }
 

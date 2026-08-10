@@ -1,4 +1,5 @@
 const frameCanvas = document.querySelector("#siteFrameBg");
+const introScrolly = document.querySelector(".intro-scrolly");
 const introFrameLabel = document.querySelector("#introFrameLabel");
 const frameContext = frameCanvas ? frameCanvas.getContext("2d") : null;
 const frameCount = 480;
@@ -55,9 +56,11 @@ function drawFrame() {
 }
 
 function updateFrameSequence() {
-  const maxScroll =
-    document.documentElement.scrollHeight - window.innerHeight;
-  const amount = maxScroll > 0 ? clamp(window.scrollY / maxScroll, 0, 1) : 0;
+  if (!introScrolly) return;
+
+  const rect = introScrolly.getBoundingClientRect();
+  const maxHeroScroll = Math.max(1, rect.height - window.innerHeight);
+  const amount = clamp(-rect.top / maxHeroScroll, 0, 1);
   const nextFrame = Math.min(frameCount - 1, Math.floor(amount * frameCount));
 
   currentFrame = nextFrame;
