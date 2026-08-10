@@ -11,7 +11,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="hero" id="top">
+    <header class="hero intro-scrolly" id="top">
+      <div class="hero-sticky">
+        <video
+          id="introVideo"
+          class="intro-video"
+          src="assets/koy-urunleri-video.mp4"
+          muted
+          playsinline
+          preload="auto"
+        ></video>
+        <div class="hero-shade"></div>
       <nav class="topbar" aria-label="Ana menü">
         <a class="brand" href="#top">Köyden Sofrana</a>
         <div class="navlinks">
@@ -32,6 +42,12 @@
         <div class="hero-actions">
           <a class="primary" href="#urunler">Ürünleri gör</a>
           <a class="secondary" href="#video">Videoyu izle</a>
+        </div>
+      </div>
+        <div class="intro-meter" aria-hidden="true">
+          <span>Frame akisi</span>
+          <strong id="introFrameLabel">00%</strong>
+          <i id="introProgress"></i>
         </div>
       </div>
     </header>
