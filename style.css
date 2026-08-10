@@ -66,15 +66,23 @@ img {
 }
 
 .intro-video,
+.intro-canvas,
 .hero-shade {
   position: absolute;
   inset: 0;
 }
 
 .intro-video {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-canvas {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  display: block;
   z-index: -3;
 }
 
