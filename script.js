@@ -5,10 +5,49 @@ const progress = document.querySelector("#progress");
 const storyVideo = document.querySelector("#storyVideo");
 const frameLabel = document.querySelector("#frameLabel");
 const introVideo = document.querySelector("#introVideo");
+const introCanvas = document.querySelector("#introCanvas");
 const introFrameLabel = document.querySelector("#introFrameLabel");
+const introContext = introCanvas ? introCanvas.getContext("2d") : null;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+function resizeIntroCanvas() {
+  if (!introCanvas) return;
+
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  const width = Math.round(window.innerWidth * ratio);
+  const height = Math.round(window.innerHeight * ratio);
+
+  if (introCanvas.width !== width || introCanvas.height !== height) {
+    introCanvas.width = width;
+    introCanvas.height = height;
+  }
+}
+
+function drawVideoFrame() {
+  if (!introVideo || !introCanvas || !introContext) return;
+  if (!introVideo.videoWidth || !introVideo.videoHeight) return;
+
+  resizeIntroCanvas();
+
+  const canvasRatio = introCanvas.width / introCanvas.height;
+  const videoRatio = introVideo.videoWidth / introVideo.videoHeight;
+  let drawWidth = introCanvas.width;
+  let drawHeight = introCanvas.height;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  if (videoRatio > canvasRatio) {
+    drawWidth = introCanvas.height * videoRatio;
+    offsetX = (introCanvas.width - drawWidth) / 2;
+  } else {
+    drawHeight = introCanvas.width / videoRatio;
+    offsetY = (introCanvas.height - drawHeight) / 2;
+  }
+
+  introContext.drawImage(introVideo, offsetX, offsetY, drawWidth, drawHeight);
 }
 
 function updateScrollScene() {
@@ -26,6 +65,8 @@ function updateScrollScene() {
       const introTargetTime = introVideo.duration * introAmount;
       if (Math.abs(introVideo.currentTime - introTargetTime) > 0.04) {
         introVideo.currentTime = introTargetTime;
+      } else {
+        drawVideoFrame();
       }
     }
 
@@ -61,13 +102,26 @@ function updateScrollScene() {
 }
 
 window.addEventListener("scroll", updateScrollScene, { passive: true });
-window.addEventListener("resize", updateScrollScene);
+window.addEventListener("resize", () => {
+  resizeIntroCanvas();
+  drawVideoFrame();
+  updateScrollScene();
+});
 if (storyVideo) {
   storyVideo.addEventListener("loadedmetadata", updateScrollScene);
   storyVideo.addEventListener("canplay", updateScrollScene);
 }
 if (introVideo) {
-  introVideo.addEventListener("loadedmetadata", updateScrollScene);
-  introVideo.addEventListener("canplay", updateScrollScene);
+  introVideo.addEventListener("loadedmetadata", () => {
+    resizeIntroCanvas();
+    updateScrollScene();
+  });
+  introVideo.addEventListener("loadeddata", drawVideoFrame);
+  introVideo.addEventListener("seeked", drawVideoFrame);
+  introVideo.addEventListener("canplay", () => {
+    drawVideoFrame();
+    updateScrollScene();
+  });
 }
+resizeIntroCanvas();
 updateScrollScene();
