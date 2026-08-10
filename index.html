@@ -6,7 +6,7 @@
     <title>Köyden Sofrana | Köy Ürünleri</title>
     <meta
       name="description"
-      content="Scroll animasyonlu köy ürünleri satış sitesi."
+      content="480 karelik scroll kontrollü köy ürünleri satış sitesi."
     />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -15,31 +15,34 @@
       <div class="hero-sticky">
         <canvas id="introCanvas" class="intro-canvas"></canvas>
         <div class="hero-shade"></div>
-      <nav class="topbar" aria-label="Ana menü">
-        <a class="brand" href="#top">Köyden Sofrana</a>
-        <div class="navlinks">
-          <a href="#hikaye">Hikaye</a>
-          <a href="#video">Video</a>
-          <a href="#urunler">Ürünler</a>
-          <a href="#siparis">Sipariş</a>
-        </div>
-      </nav>
 
-      <div class="hero-copy">
-        <p class="eyebrow">Yeni hasat köy ürünleri</p>
-        <h1>Köyden gelen her ürünün yolculuğunu kaydırarak izle.</h1>
-        <p>
-          Zeytinyağı, bal, peynir ve salça; üreticiden çıkar, aynı hafta cam
-          kavanozda veya vakumlu ambalajda sofrana gelir.
-        </p>
-        <div class="hero-actions">
-          <a class="primary" href="#urunler">Ürünleri gör</a>
-          <a class="secondary" href="#video">Videoyu izle</a>
+        <nav class="topbar" aria-label="Ana menü">
+          <a class="brand" href="#top">Köyden Sofrana</a>
+          <div class="navlinks">
+            <a href="#top">Hikaye</a>
+            <a href="#video">Video</a>
+            <a href="#urunler">Ürünler</a>
+            <a href="#siparis">Sipariş</a>
+          </div>
+        </nav>
+
+        <div class="hero-copy">
+          <p class="eyebrow">480 frame image sequence</p>
+          <h1>Köy ürünlerinin yolculuğu kare kare akar.</h1>
+          <p>
+            İlk bölümde sayfa sabit kalır. Kaydırdıkça video 480 ayrı JPG
+            frame üzerinden ilerler; tüm kareler bitince aşağıdaki bölümlere
+            geçilir.
+          </p>
+          <div class="hero-actions">
+            <a class="primary" href="#urunler">Ürünleri gör</a>
+            <a class="secondary" href="#video">Videoyu oynat</a>
+          </div>
         </div>
-      </div>
+
         <div class="intro-meter" aria-hidden="true">
-          <span>Frame akisi</span>
-          <strong id="introFrameLabel">00%</strong>
+          <span>Frame akışı</span>
+          <strong id="introFrameLabel">000 / 480</strong>
           <i id="introProgress"></i>
         </div>
       </div>
@@ -53,70 +56,13 @@
         <span>Cam ambalaj</span>
       </section>
 
-      <section class="scrolly" id="hikaye">
-        <div class="sticky-scene">
-          <div class="scene-copy">
-            <p class="eyebrow">Scroll driven animation</p>
-            <h2>Topraktan kavanoza, beş karede güven.</h2>
-            <p>
-              Sayfayı kaydırdıkça üretim hattı film şeridi gibi ilerler:
-              hasat, işleme, dolum, kontrol ve teslimat.
-            </p>
-          </div>
-
-          <div class="stage">
-            <div class="video-scrub">
-              <video
-                id="storyVideo"
-                src="assets/koy-urunleri-video.mp4"
-                muted
-                playsinline
-                preload="auto"
-                poster="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=1200&q=80"
-              ></video>
-              <div class="scrub-label">
-                <span>Video frame akışı</span>
-                <strong id="frameLabel">00%</strong>
-              </div>
-            </div>
-            <div class="film" id="film">
-              <article class="frame frame-1">
-                <span>01</span>
-                <strong>Sabah hasadı</strong>
-              </article>
-              <article class="frame frame-2">
-                <span>02</span>
-                <strong>Taş değirmen</strong>
-              </article>
-              <article class="frame frame-3">
-                <span>03</span>
-                <strong>Bakır kazan</strong>
-              </article>
-              <article class="frame frame-4">
-                <span>04</span>
-                <strong>Cam kavanoz</strong>
-              </article>
-              <article class="frame frame-5">
-                <span>05</span>
-                <strong>Soğuk kargo</strong>
-              </article>
-            </div>
-          </div>
-
-          <div class="progress-rail" aria-hidden="true">
-            <span id="progress"></span>
-          </div>
-        </div>
-      </section>
-
       <section class="video-band" id="video">
         <div>
           <p class="eyebrow">Kaynak video</p>
           <h2>Video alanı hazır.</h2>
           <p>
-            Drive dosyası indirildi ve siteye yerel video olarak bağlandı.
-            Yukarıdaki hikaye bölümünde sayfayı kaydırdıkça video kare kare
-            ilerler.
+            İlk ekrandaki animasyon bu videodan çıkarılan 480 gerçek kareyle
+            çalışır. Burada videonun normal oynatıcısı durur.
           </p>
         </div>
         <video
