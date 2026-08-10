@@ -6,7 +6,7 @@ import { spawn } from "node:child_process";
 const root = resolve(import.meta.dirname, "..");
 const framesDir = join(root, "assets", "frames");
 const edgePath = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
-const frameCount = 120;
+const frameCount = 480;
 
 mkdirSync(framesDir, { recursive: true });
 
