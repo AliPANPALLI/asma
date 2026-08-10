@@ -4,10 +4,16 @@ const film = document.querySelector("#film");
 const progress = document.querySelector("#progress");
 const storyVideo = document.querySelector("#storyVideo");
 const frameLabel = document.querySelector("#frameLabel");
-const introVideo = document.querySelector("#introVideo");
 const introCanvas = document.querySelector("#introCanvas");
 const introFrameLabel = document.querySelector("#introFrameLabel");
 const introContext = introCanvas ? introCanvas.getContext("2d") : null;
+const introFrameCount = 120;
+const introFrames = Array.from({ length: introFrameCount }, (_, index) => {
+  const image = new Image();
+  image.src = `assets/frames/frame_${String(index).padStart(4, "0")}.jpg`;
+  return image;
+});
+let currentIntroFrame = 0;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -27,27 +33,30 @@ function resizeIntroCanvas() {
 }
 
 function drawVideoFrame() {
-  if (!introVideo || !introCanvas || !introContext) return;
-  if (!introVideo.videoWidth || !introVideo.videoHeight) return;
+  if (!introCanvas || !introContext) return;
+
+  const image = introFrames[currentIntroFrame];
+  if (!image || !image.complete || !image.naturalWidth) return;
 
   resizeIntroCanvas();
 
   const canvasRatio = introCanvas.width / introCanvas.height;
-  const videoRatio = introVideo.videoWidth / introVideo.videoHeight;
+  const imageRatio = image.naturalWidth / image.naturalHeight;
   let drawWidth = introCanvas.width;
   let drawHeight = introCanvas.height;
   let offsetX = 0;
   let offsetY = 0;
 
-  if (videoRatio > canvasRatio) {
-    drawWidth = introCanvas.height * videoRatio;
+  if (imageRatio > canvasRatio) {
+    drawWidth = introCanvas.height * imageRatio;
     offsetX = (introCanvas.width - drawWidth) / 2;
   } else {
-    drawHeight = introCanvas.width / videoRatio;
+    drawHeight = introCanvas.width / imageRatio;
     offsetY = (introCanvas.height - drawHeight) / 2;
   }
 
-  introContext.drawImage(introVideo, offsetX, offsetY, drawWidth, drawHeight);
+  introContext.clearRect(0, 0, introCanvas.width, introCanvas.height);
+  introContext.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
 }
 
 function updateScrollScene() {
@@ -61,14 +70,11 @@ function updateScrollScene() {
       introAmount.toFixed(4),
     );
 
-    if (introVideo && Number.isFinite(introVideo.duration)) {
-      const introTargetTime = introVideo.duration * introAmount;
-      if (Math.abs(introVideo.currentTime - introTargetTime) > 0.04) {
-        introVideo.currentTime = introTargetTime;
-      } else {
-        drawVideoFrame();
-      }
-    }
+    currentIntroFrame = Math.min(
+      introFrameCount - 1,
+      Math.floor(introAmount * introFrameCount),
+    );
+    drawVideoFrame();
 
     if (introFrameLabel) {
       introFrameLabel.textContent = `${String(Math.round(introAmount * 100)).padStart(2, "0")}%`;
@@ -111,17 +117,6 @@ if (storyVideo) {
   storyVideo.addEventListener("loadedmetadata", updateScrollScene);
   storyVideo.addEventListener("canplay", updateScrollScene);
 }
-if (introVideo) {
-  introVideo.addEventListener("loadedmetadata", () => {
-    resizeIntroCanvas();
-    updateScrollScene();
-  });
-  introVideo.addEventListener("loadeddata", drawVideoFrame);
-  introVideo.addEventListener("seeked", drawVideoFrame);
-  introVideo.addEventListener("canplay", () => {
-    drawVideoFrame();
-    updateScrollScene();
-  });
-}
+introFrames[0].addEventListener("load", drawVideoFrame);
 resizeIntroCanvas();
 updateScrollScene();
