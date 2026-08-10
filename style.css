@@ -18,9 +18,29 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
+  background: #111;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.site-frame-bg,
+.site-bg-shade {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.site-frame-bg {
+  z-index: -4;
+}
+
+.site-bg-shade {
+  z-index: -3;
+  background:
+    linear-gradient(90deg, rgba(15, 22, 13, 0.78), rgba(15, 22, 13, 0.42) 52%, rgba(15, 22, 13, 0.22)),
+    linear-gradient(0deg, rgba(15, 22, 13, 0.72), rgba(15, 22, 13, 0.12) 42%, rgba(15, 22, 13, 0.6));
 }
 
 a {
@@ -52,7 +72,7 @@ img {
   min-height: 620vh;
   display: block;
   padding: 0;
-  background: #111;
+  background: transparent;
 }
 
 .hero-sticky {
@@ -65,17 +85,9 @@ img {
   padding: 24px clamp(18px, 4vw, 64px) 72px;
 }
 
-.intro-canvas,
 .hero-shade {
   position: absolute;
   inset: 0;
-}
-
-.intro-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-  z-index: -3;
 }
 
 .hero-shade {
@@ -241,7 +253,8 @@ h3 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-block: 1px solid var(--line);
-  background: #fffef8;
+  background: rgba(255, 254, 248, 0.86);
+  backdrop-filter: blur(14px);
 }
 
 .ticker span {
@@ -404,7 +417,8 @@ h3 {
   gap: clamp(24px, 5vw, 64px);
   align-items: center;
   padding: clamp(70px, 10vw, 130px) clamp(18px, 5vw, 72px);
-  background: #20301f;
+  background: rgba(32, 48, 31, 0.78);
+  backdrop-filter: blur(14px);
   color: #fffdf4;
 }
 
@@ -419,6 +433,8 @@ h3 {
 
 .products {
   padding: clamp(70px, 10vw, 130px) clamp(18px, 5vw, 72px);
+  background: rgba(251, 250, 244, 0.82);
+  backdrop-filter: blur(14px);
 }
 
 .section-head {
@@ -473,8 +489,7 @@ h3 {
 
 .order {
   background:
-    linear-gradient(rgba(29, 33, 23, 0.76), rgba(29, 33, 23, 0.76)),
-    url("https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=1800&q=85") center/cover;
+    linear-gradient(rgba(29, 33, 23, 0.72), rgba(29, 33, 23, 0.72));
 }
 
 .order-form {

@@ -1,91 +1,85 @@
-const introScrolly = document.querySelector(".intro-scrolly");
-const introCanvas = document.querySelector("#introCanvas");
+const frameCanvas = document.querySelector("#siteFrameBg");
 const introFrameLabel = document.querySelector("#introFrameLabel");
-const introContext = introCanvas ? introCanvas.getContext("2d") : null;
-const introFrameCount = 480;
-const introFrames = Array.from({ length: introFrameCount }, (_, index) => {
+const frameContext = frameCanvas ? frameCanvas.getContext("2d") : null;
+const frameCount = 480;
+const frames = Array.from({ length: frameCount }, (_, index) => {
   const image = new Image();
   image.src = `assets/frames/frame_${String(index).padStart(4, "0")}.jpg`;
   return image;
 });
 
-let currentIntroFrame = 0;
+let currentFrame = 0;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-function resizeIntroCanvas() {
-  if (!introCanvas) return;
+function resizeFrameCanvas() {
+  if (!frameCanvas) return;
 
   const ratio = Math.min(window.devicePixelRatio || 1, 2);
   const width = Math.round(window.innerWidth * ratio);
   const height = Math.round(window.innerHeight * ratio);
 
-  if (introCanvas.width !== width || introCanvas.height !== height) {
-    introCanvas.width = width;
-    introCanvas.height = height;
+  if (frameCanvas.width !== width || frameCanvas.height !== height) {
+    frameCanvas.width = width;
+    frameCanvas.height = height;
   }
 }
 
-function drawIntroFrame() {
-  if (!introCanvas || !introContext) return;
+function drawFrame() {
+  if (!frameCanvas || !frameContext) return;
 
-  const image = introFrames[currentIntroFrame];
+  const image = frames[currentFrame];
   if (!image || !image.complete || !image.naturalWidth) return;
 
-  resizeIntroCanvas();
+  resizeFrameCanvas();
 
-  const canvasRatio = introCanvas.width / introCanvas.height;
+  const canvasRatio = frameCanvas.width / frameCanvas.height;
   const imageRatio = image.naturalWidth / image.naturalHeight;
-  let drawWidth = introCanvas.width;
-  let drawHeight = introCanvas.height;
+  let drawWidth = frameCanvas.width;
+  let drawHeight = frameCanvas.height;
   let offsetX = 0;
   let offsetY = 0;
 
   if (imageRatio > canvasRatio) {
-    drawWidth = introCanvas.height * imageRatio;
-    offsetX = (introCanvas.width - drawWidth) / 2;
+    drawWidth = frameCanvas.height * imageRatio;
+    offsetX = (frameCanvas.width - drawWidth) / 2;
   } else {
-    drawHeight = introCanvas.width / imageRatio;
-    offsetY = (introCanvas.height - drawHeight) / 2;
+    drawHeight = frameCanvas.width / imageRatio;
+    offsetY = (frameCanvas.height - drawHeight) / 2;
   }
 
-  introContext.clearRect(0, 0, introCanvas.width, introCanvas.height);
-  introContext.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+  frameContext.clearRect(0, 0, frameCanvas.width, frameCanvas.height);
+  frameContext.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
 }
 
-function updateIntroSequence() {
-  if (!introScrolly) return;
+function updateFrameSequence() {
+  const maxScroll =
+    document.documentElement.scrollHeight - window.innerHeight;
+  const amount = maxScroll > 0 ? clamp(window.scrollY / maxScroll, 0, 1) : 0;
+  const nextFrame = Math.min(frameCount - 1, Math.floor(amount * frameCount));
 
-  const rect = introScrolly.getBoundingClientRect();
-  const scrollable = rect.height - window.innerHeight;
-  const amount = clamp(-rect.top / scrollable, 0, 1);
-  const nextFrame = Math.min(
-    introFrameCount - 1,
-    Math.floor(amount * introFrameCount),
-  );
-
-  currentIntroFrame = nextFrame;
+  currentFrame = nextFrame;
   document.documentElement.style.setProperty(
     "--intro-progress",
     amount.toFixed(4),
   );
 
   if (introFrameLabel) {
-    introFrameLabel.textContent = `${String(nextFrame + 1).padStart(3, "0")} / ${introFrameCount}`;
+    introFrameLabel.textContent = `${String(nextFrame + 1).padStart(3, "0")} / ${frameCount}`;
   }
 
-  drawIntroFrame();
+  drawFrame();
 }
 
-window.addEventListener("scroll", updateIntroSequence, { passive: true });
+window.addEventListener("scroll", updateFrameSequence, { passive: true });
 window.addEventListener("resize", () => {
-  resizeIntroCanvas();
-  drawIntroFrame();
-  updateIntroSequence();
+  resizeFrameCanvas();
+  drawFrame();
+  updateFrameSequence();
 });
 
-introFrames[0].addEventListener("load", drawIntroFrame);
-resizeIntroCanvas();
-updateIntroSequence();
+frames[0].addEventListener("load", drawFrame);
+resizeFrameCanvas();
+updateFrameSequence();
