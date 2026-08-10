@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Köyden Sofrana | Köy Ürünleri</title>
+    <meta
+      name="description"
+      content="Scroll animasyonlu köy ürünleri satış sitesi."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="topbar" aria-label="Ana menü">
+        <a class="brand" href="#top">Köyden Sofrana</a>
+        <div class="navlinks">
+          <a href="#hikaye">Hikaye</a>
+          <a href="#video">Video</a>
+          <a href="#urunler">Ürünler</a>
+          <a href="#siparis">Sipariş</a>
+        </div>
+      </nav>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Yeni hasat köy ürünleri</p>
+        <h1>Köyden gelen her ürünün yolculuğunu kaydırarak izle.</h1>
+        <p>
+          Zeytinyağı, bal, peynir ve salça; üreticiden çıkar, aynı hafta cam
+          kavanozda veya vakumlu ambalajda sofrana gelir.
+        </p>
+        <div class="hero-actions">
+          <a class="primary" href="#urunler">Ürünleri gör</a>
+          <a class="secondary" href="#video">Videoyu izle</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="ticker" aria-label="Güven notları">
+        <span>Katkısız üretim</span>
+        <span>Haftalık kargo</span>
+        <span>Üretici adı açık</span>
+        <span>Cam ambalaj</span>
+      </section>
+
+      <section class="scrolly" id="hikaye">
+        <div class="sticky-scene">
+          <div class="scene-copy">
+            <p class="eyebrow">Scroll driven animation</p>
+            <h2>Topraktan kavanoza, beş karede güven.</h2>
+            <p>
+              Sayfayı kaydırdıkça üretim hattı film şeridi gibi ilerler:
+              hasat, işleme, dolum, kontrol ve teslimat.
+            </p>
+          </div>
+
+          <div class="stage">
+            <div class="video-scrub">
+              <video
+                id="storyVideo"
+                src="assets/koy-urunleri-video.mp4"
+                muted
+                playsinline
+                preload="auto"
+                poster="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=1200&q=80"
+              ></video>
+              <div class="scrub-label">
+                <span>Video frame akışı</span>
+                <strong id="frameLabel">00%</strong>
+              </div>
+            </div>
+            <div class="film" id="film">
+              <article class="frame frame-1">
+                <span>01</span>
+                <strong>Sabah hasadı</strong>
+              </article>
+              <article class="frame frame-2">
+                <span>02</span>
+                <strong>Taş değirmen</strong>
+              </article>
+              <article class="frame frame-3">
+                <span>03</span>
+                <strong>Bakır kazan</strong>
+              </article>
+              <article class="frame frame-4">
+                <span>04</span>
+                <strong>Cam kavanoz</strong>
+              </article>
+              <article class="frame frame-5">
+                <span>05</span>
+                <strong>Soğuk kargo</strong>
+              </article>
+            </div>
+          </div>
+
+          <div class="progress-rail" aria-hidden="true">
+            <span id="progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="video-band" id="video">
+        <div>
+          <p class="eyebrow">Kaynak video</p>
+          <h2>Video alanı hazır.</h2>
+          <p>
+            Drive dosyası indirildi ve siteye yerel video olarak bağlandı.
+            Yukarıdaki hikaye bölümünde sayfayı kaydırdıkça video kare kare
+            ilerler.
+          </p>
+        </div>
+        <video
+          src="assets/koy-urunleri-video.mp4"
+          controls
+          playsinline
+          preload="metadata"
+        ></video>
+      </section>
+
+      <section class="products" id="urunler">
+        <div class="section-head">
+          <p class="eyebrow">Sepete hazır ürünler</p>
+          <h2>Bu haftanın köy seçkisi</h2>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=1200&q=85"
+              alt="Taş baskı zeytinyağı"
+            />
+            <div>
+              <p>Soğuk sıkım, düşük asit, yeni hasat</p>
+              <h3>Taş baskı zeytinyağı</h3>
+              <div class="buy-row">
+                <strong>₺390</strong>
+                <a href="#siparis">Sepete ekle</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=1200&q=85"
+              alt="Karakovan balı"
+            />
+            <div>
+              <p>Katkısız petek, yayla çiçeklerinden</p>
+              <h3>Karakovan balı</h3>
+              <div class="buy-row">
+                <strong>₺460</strong>
+                <a href="#siparis">Sepete ekle</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1452195100486-9cc805987862?auto=format&fit=crop&w=1200&q=85"
+              alt="Köy peyniri"
+            />
+            <div>
+              <p>Günlük süt, salamura dinlendirme</p>
+              <h3>Köy peyniri</h3>
+              <div class="buy-row">
+                <strong>₺240</strong>
+                <a href="#siparis">Sepete ekle</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=1200&q=85"
+              alt="Ev yapımı salça"
+            />
+            <div>
+              <p>Güneşte kurutulmuş domates ve biber</p>
+              <h3>Ev yapımı salça</h3>
+              <div class="buy-row">
+                <strong>₺180</strong>
+                <a href="#siparis">Sepete ekle</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="order" id="siparis">
+        <div>
+          <p class="eyebrow">Ön sipariş</p>
+          <h2>Hasat paketini ayırt.</h2>
+          <p>
+            Minimum sepet yok. İstanbul, Ankara ve İzmir çıkışlı kargolar
+            pazartesi ve perşembe hazırlanır.
+          </p>
+        </div>
+
+        <form class="order-form">
+          <label>
+            Ad soyad
+            <input type="text" name="name" placeholder="Adınız" />
+          </label>
+          <label>
+            Telefon
+            <input type="tel" name="phone" placeholder="05xx xxx xx xx" />
+          </label>
+          <label>
+            İlgilendiğiniz ürün
+            <select name="product">
+              <option>Hasat paketi</option>
+              <option>Taş baskı zeytinyağı</option>
+              <option>Karakovan balı</option>
+              <option>Köy peyniri</option>
+              <option>Ev yapımı salça</option>
+            </select>
+          </label>
+          <button type="button">Beni ara</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
