@@ -80,6 +80,15 @@ window.addEventListener("resize", () => {
   updateFrameSequence();
 });
 
-frames[0].addEventListener("load", drawFrame);
+frames.forEach((image, index) => {
+  if (index < 24) {
+    image.loading = "eager";
+  }
+  image.addEventListener("load", () => {
+    if (index === currentFrame) {
+      drawFrame();
+    }
+  });
+});
 resizeFrameCanvas();
 updateFrameSequence();
