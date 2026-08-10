@@ -59,7 +59,10 @@ function updateFrameSequence() {
   if (!introScrolly) return;
 
   const rect = introScrolly.getBoundingClientRect();
-  const maxHeroScroll = Math.max(1, rect.height - window.innerHeight);
+  const stickyHeight = frameCanvas
+    ? frameCanvas.getBoundingClientRect().height
+    : window.innerHeight;
+  const maxHeroScroll = Math.max(1, rect.height - stickyHeight);
   const amount = clamp(-rect.top / maxHeroScroll, 0, 1);
   const nextFrame = Math.min(frameCount - 1, Math.floor(amount * frameCount));
 
